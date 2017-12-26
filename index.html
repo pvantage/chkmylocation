@@ -52,22 +52,14 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=geometry&key=AIzaSyAdRw4y6QbeCa2AVoQcI_j7NMQZPYDrabU" type="text/javascript"></script>
 	<script type="text/javascript">
-	function showNotify(){	
-	cordova.plugins.diagnostic.switchToLocationSettings();
-	return true;
-}
+	
 //var setinter=setInterval(function(){
 var id, target, options;
 
 function success(pos) {
   var crd = pos.coords;
 	alert('target.latitude='+target.latitude+', target.longitude='+target.longitude+', crd.latitude='+crd.latitude+', crd.longitude='+crd.longitude);
-	navigator.notification.alert(
-					'target.latitude='+target.latitude+', target.longitude='+target.longitude+', crd.latitude='+crd.latitude+', crd.longitude='+crd.longitude,
-					showNotify, 
-					'Location update failed',
-					'Done'
-				);
+	
   if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
     console.log('Congratulations, you reached the target');
     navigator.geolocation.clearWatch(id);
@@ -76,12 +68,7 @@ function success(pos) {
 
 function error(err) {
   alert('ERROR(' + err.code + '): ' + err.message);
-  navigator.notification.alert(
-					'ERROR(' + err.code + '): ' + err.message,
-					showNotify, 
-					'Location update failed',
-					'Done'
-				);
+ 
 }
 
 target = { 
@@ -91,7 +78,7 @@ target = {
 
 options = {
   enableHighAccuracy: false,
-  timeout: 5000,
+  timeout: 1000,
   maximumAge: 0
 };
 
