@@ -63,29 +63,29 @@ function onDeviceReady() {
         var coords = location.coords;
         var lat    = coords.latitude;
         var lng    = coords.longitude;
-        alert('- Location: ', JSON.stringify(location));        
+        alert('- Location: '+JSON.stringify(location));        
     };
 
     // This callback will be executed if a location-error occurs.  Eg: this will be called if user disables location-services.
     var failureFn = function(errorCode) {
-        alert('- BackgroundGeoLocation error: ', errorCode);
+        alert('- BackgroundGeoLocation error: '+errorCode);
     }
 
     // Listen to location events & errors.
     bgGeo.on('location', callbackFn, failureFn);
     // Fired whenever state changes from moving->stationary or vice-versa.
     bgGeo.on('motionchange', function(isMoving) {
-      alert('- onMotionChange: ', isMoving);
+      alert('- onMotionChange: '+isMoving);
     });
     // Fired whenever a geofence transition occurs.
     bgGeo.on('geofence', function(geofence) {
-      alert('- onGeofence: ', geofence.identifier, geofence.location);
+      alert('- onGeofence: '+geofence.identifier+geofence.location);
     });
     // Fired whenever an HTTP response is received from your server.
     bgGeo.on('http', function(response) {
-      alert('http success: ', response.responseText);
+      alert('http success: '+ response.responseText);
     }, function(response) {
-      alert('http failure: ', response.status);
+      alert('http failure: '+ response.status);
     });
 
     // BackgroundGeoLocation is highly configurable.
@@ -114,7 +114,7 @@ function onDeviceReady() {
         }
     }, function(state) {
         // This callback is executed when the plugin is ready to use.
-        alert("BackgroundGeolocation ready: ", state);
+        alert("BackgroundGeolocation ready: "+ state);
         if (!state.enabled) {
             bgGeo.start();
         }
