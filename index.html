@@ -54,84 +54,45 @@
 	<script type="text/javascript">
 	
 
-function onDeviceReady() {
-	alert('test1');
-    // Get a reference to the plugin.
-    var bgGeo = window.BackgroundGeolocation;
-	
-    //This callback will be executed every time a geolocation is recorded in the background.
+document.addEventListener('deviceready', setupGeolocation, false);
+
+function setupGeolocation () {
+    /**
+     * This function will be executed every time a geolocation was got on the background.
+     */
     var callbackFn = function(location) {
-        var coords = location.coords;
-        var lat    = coords.latitude;
-        var lng    = coords.longitude;
-        alert('- Location: '+JSON.stringify(location));        
+          // Console.log only is here. You need to setup your own data interaction here
+      alert('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+      /*
+      IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
+      and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
+      IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+      */
+      backgroundGeoLocation.finish();
     };
 
-    // This callback will be executed if a location-error occurs.  Eg: this will be called if user disables location-services.
-    var failureFn = function(errorCode) {
-        alert('- BackgroundGeoLocation error: '+errorCode);
-    }
+      /**
+      * Error handler
+      */
+    var failureFn = function(error) {
+      alert('BackgroundGeoLocation error');
+    };
 
-    // Listen to location events & errors.
-    bgGeo.on('location', callbackFn, failureFn);
-    // Fired whenever state changes from moving->stationary or vice-versa.
-    bgGeo.on('motionchange', function(isMoving) {
-      alert('- onMotionChange: '+isMoving);
-    });
-    // Fired whenever a geofence transition occurs.
-    bgGeo.on('geofence', function(geofence) {
-      alert('- onGeofence: '+geofence.identifier+geofence.location);
-    });
-    // Fired whenever an HTTP response is received from your server.
-    bgGeo.on('http', function(response) {
-      alert('http success: '+ response.responseText);
-    }, function(response) {
-      alert('http failure: '+ response.status);
+    // A lot of options is available here, you can see them all on plugin repo (see link below)
+    backgroundGeoLocation.configure(callbackFn, failureFn, {
+        desiredAccuracy: 10,
+        stationaryRadius: 20,
+        distanceFilter: 30,
+        debug: true, // <-- Play sounds for background-geolocation life-cycle. Also will cause local notifications under iOS.
+        stopOnTerminate: false, // <-- Clear background location settings when the app terminates
     });
 
-    // BackgroundGeoLocation is highly configurable.
-    /*bgGeo.configure({
-        // Geolocation config
-        desiredAccuracy: 0,
-        distanceFilter: 10,
-        stationaryRadius: 25,
-        // Activity Recognition config
-        activityRecognitionInterval: 10000,
-        stopTimeout: 5,
-        // Application config
-        debug: true,  // <-- Debug sounds & notifications.
-        stopOnTerminate: false,
-        startOnBoot: true,
-        // HTTP / SQLite config
-        url: "http://your.server.com/locations",
-        method: "POST",
-        autoSync: true,
-        maxDaysToPersist: 3,
-        headers: {  // <-- Optional HTTP headers
-            "X-FOO": "bar"
-        },
-        params: {   // <-- Optional HTTP params
-            "auth_token": "maybe_your_server_authenticates_via_token_YES?"
-        }
-    }, function(state) {
-        // This callback is executed when the plugin is ready to use.
-        alert("BackgroundGeolocation ready: "+ state);
-        if (!state.enabled) {
-            
-        }
-    });*/
-bgGeo.start();
-    // The plugin is typically toggled with some button on your UI.
-    function onToggleEnabled(value) {
-        if (value) {
-            bgGeo.start();
-        } else {
-            bgGeo.stop();
-        }
-    }
+    // Start tracking of user coords
+    backgroundGeoLocation.start();
+
+    // Stop tracking of user coords
+    // backgroundGeoLocation.stop();
 }
-
-document.addEventListener('deviceready', onDeviceReady, false);
 	
 
 	</script>
