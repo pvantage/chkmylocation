@@ -53,17 +53,21 @@
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=geometry&key=AIzaSyAdRw4y6QbeCa2AVoQcI_j7NMQZPYDrabU" type="text/javascript"></script>
 	<script type="text/javascript">
 	
-
+function showNotify(){	
+	cordova.plugins.diagnostic.switchToLocationSettings();
+	return true;
+}
 document.addEventListener('deviceready', setupGeolocation, false);
 
 function setupGeolocation () {
+	alert('test1');
     /**
      * This function will be executed every time a geolocation was got on the background.
      */
     var callbackFn = function(location) {
 		navigator.notification.alert(
 			'[js] BackgroundGeoLocation callback: ' + location.latitude + ',' + location.longitude,  // message
-			function(){},         // callback
+			showNotify,         // callback
 			'Game Over',            // title
 			'Done'                  // buttonName
 		);
@@ -81,7 +85,12 @@ function setupGeolocation () {
       * Error handler
       */
     var failureFn = function(error) {
-      alert('BackgroundGeoLocation error');
+	  navigator.notification.alert(
+			'BackgroundGeoLocation error ',  // message
+			showNotify,         // callback
+			'Game Over',            // title
+			'Done'                  // buttonName
+		);
     };
 
     // A lot of options is available here, you can see them all on plugin repo (see link below)
@@ -95,7 +104,7 @@ function setupGeolocation () {
 
     // Start tracking of user coords
     backgroundGeoLocation.start();
-	alert('test');
+	alert('test2');
     // Stop tracking of user coords
     // backgroundGeoLocation.stop();
 }
