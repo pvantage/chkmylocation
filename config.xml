@@ -29,12 +29,6 @@
 	
 	<plugin name="cordova-plugin-mauron85-background-geolocation"/>
 	
-	 <platform name="ios">
-	  <resource-file src="GoogleService-Info.plist" />
-	  <icon src="res/icon/icon-60@3x.png" platform="ios" width="180" height="180" />
-	</platform>
-	
-	
 	<plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />	
 	<plugin name="cordova-plugin-splashscreen" />
 	
