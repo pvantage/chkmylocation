@@ -55,6 +55,7 @@
 	function onDeviceReady2()
 	{
 		alert('test1');
+		BackgroundGeolocation.start();
 		BackgroundGeolocation.getLocations(
 		  function (locations) {
 		  	alert('test2');
@@ -64,17 +65,7 @@
 		);
 	}
 	document.addEventListener("deviceready", onDeviceReady2, false);
-	function onDeviceReady3(){
-		alert('test3');
-		BackgroundGeolocation.getLocations(
-		  function (locations) {
-		  	alert('test4');
-			alert(locations);
-			alert(locations.latitude);
-		  }
-		);
-	}
-	onDeviceReady3();
+	
 
 	</script>
 </body>
