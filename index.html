@@ -52,9 +52,12 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=geometry&key=AIzaSyAdRw4y6QbeCa2AVoQcI_j7NMQZPYDrabU" type="text/javascript"></script>
 	<script type="text/javascript">
-	function onDeviceReady2(){
-		BackgroundGeolocation.getLocations(
+	function onDeviceReady2()
+	{
+		alert('test1');
+		BackgroundGeolocation.on('location'
 		  function (locations) {
+		  	alert('test2');
 			alert(locations);
 			alert(locations.latitude);
 		  }
@@ -63,8 +66,9 @@
 	document.addEventListener("deviceready", onDeviceReady2, false);
 	function onDeviceReady3(){
 		alert('test3');
-		BackgroundGeolocation.getLocations(
+		BackgroundGeolocation.on('location'
 		  function (locations) {
+		  	alert('test4');
 			alert(locations);
 			alert(locations.latitude);
 		  }
