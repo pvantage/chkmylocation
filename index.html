@@ -53,61 +53,35 @@
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=geometry&key=AIzaSyAdRw4y6QbeCa2AVoQcI_j7NMQZPYDrabU" type="text/javascript"></script>
 	<script type="text/javascript">
 	
-function showNotify(){	
-	cordova.plugins.diagnostic.switchToLocationSettings();
-	return true;
+//var setinter=setInterval(function(){
+var id, target, options;
+
+function success(pos) {
+  var crd = pos.coords;
+	console.log('target.latitude='+target.latitude+', target.longitude='+target.longitude+', crd.latitude='+crd.latitude+', crd.longitude='+crd.longitude);
+  if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+    console.log('Congratulations, you reached the target');
+    navigator.geolocation.clearWatch(id);
+  }
 }
-document.addEventListener('deviceready', setupGeolocation, false);
 
-function setupGeolocation () {
-	alert('test1');
-    /**
-     * This function will be executed every time a geolocation was got on the background.
-     */
-    var callbackFn = function(location) {
-		navigator.notification.alert(
-			'[js] BackgroundGeoLocation callback: ' + location.latitude + ',' + location.longitude,  // message
-			showNotify,         // callback
-			'Game Over',            // title
-			'Done'                  // buttonName
-		);
-          // Console.log only is here. You need to setup your own data interaction here
-      //alert('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
-      /*
-      IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
-      and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-      IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-      */
-      backgroundGeoLocation.finish();
-    };
-
-      /**
-      * Error handler
-      */
-    var failureFn = function(error) {
-	  navigator.notification.alert(
-			'BackgroundGeoLocation error ',  // message
-			showNotify,         // callback
-			'Game Over',            // title
-			'Done'                  // buttonName
-		);
-    };
-
-    // A lot of options is available here, you can see them all on plugin repo (see link below)
-    backgroundGeoLocation.configure(callbackFn, failureFn, {
-        desiredAccuracy: 10,
-        stationaryRadius: 20,
-        distanceFilter: 30,
-        debug: true, // <-- Play sounds for background-geolocation life-cycle. Also will cause local notifications under iOS.
-        stopOnTerminate: false, // <-- Clear background location settings when the app terminates
-    });
-
-    // Start tracking of user coords
-    backgroundGeoLocation.start();
-	alert('test2');
-    // Stop tracking of user coords
-    // backgroundGeoLocation.stop();
+function error(err) {
+  alert('ERROR(' + err.code + '): ' + err.message);
 }
+
+target = {
+  latitude : 0,
+  longitude: 0
+};
+
+options = {
+  enableHighAccuracy: false,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+id = navigator.geolocation.watchPosition(success, error, options);
+//},5000);
 	
 
 	</script>
