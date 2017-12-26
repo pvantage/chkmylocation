@@ -7,10 +7,10 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Clapme for drivers</name>
+    <name>Check My Location</name>
 
     <description>
-      Clapme app for drivers
+      Check My Location
     </description>
 
     <author href="http://www.vantagewebtech.com" email="rinku.vantage@gmail.com">
