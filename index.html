@@ -55,9 +55,10 @@
 	
 
 function onDeviceReady() {
+	alert('test1');
     // Get a reference to the plugin.
     var bgGeo = window.BackgroundGeolocation;
-
+	
     //This callback will be executed every time a geolocation is recorded in the background.
     var callbackFn = function(location) {
         var coords = location.coords;
@@ -89,7 +90,7 @@ function onDeviceReady() {
     });
 
     // BackgroundGeoLocation is highly configurable.
-    bgGeo.configure({
+    /*bgGeo.configure({
         // Geolocation config
         desiredAccuracy: 0,
         distanceFilter: 10,
@@ -116,10 +117,10 @@ function onDeviceReady() {
         // This callback is executed when the plugin is ready to use.
         alert("BackgroundGeolocation ready: "+ state);
         if (!state.enabled) {
-            bgGeo.start();
+            
         }
-    });
-
+    });*/
+bgGeo.start();
     // The plugin is typically toggled with some button on your UI.
     function onToggleEnabled(value) {
         if (value) {
