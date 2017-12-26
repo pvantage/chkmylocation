@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clap Me</title>
+<link href="css/style.css" type="text/css" rel="stylesheet">
+<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+
+</head>
+
+<body>
+<div class="wrapper picuplocation">
+  <div class="container">
+    <div class="innerpage">
+	<div class="innermidbox picupmid">
+	<div class="picup-vehicle">
+	<div class="map-box" id="gmap">
+	</div>
+	
+	
+	
+
+    </div>
+
+
+	</div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="myprofilemenus" class="modal fade menupopup" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+     
+    </div>
+
+  </div>
+</div>
+</div>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=geometry&key=AIzaSyAdRw4y6QbeCa2AVoQcI_j7NMQZPYDrabU" type="text/javascript"></script>
+	<script type="text/javascript">
+	function onDeviceReady2(){
+		BackgroundGeolocation.getLocations(
+		  function (locations) {
+			alert(locations);
+			alert(locations.latitude);
+		  }
+		);
+	}
+	document.addEventListener("deviceready", onDeviceReady2, false);
+	
+
+	</script>
+</body>
+</html>
