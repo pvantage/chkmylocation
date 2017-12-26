@@ -61,7 +61,16 @@
 		);
 	}
 	document.addEventListener("deviceready", onDeviceReady2, false);
-	
+	function onDeviceReady3(){
+		alert('test3');
+		BackgroundGeolocation.getLocations(
+		  function (locations) {
+			alert(locations);
+			alert(locations.latitude);
+		  }
+		);
+	}
+	onDeviceReady3();
 
 	</script>
 </body>
