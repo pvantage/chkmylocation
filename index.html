@@ -61,8 +61,14 @@ function setupGeolocation () {
      * This function will be executed every time a geolocation was got on the background.
      */
     var callbackFn = function(location) {
+		navigator.notification.alert(
+			'[js] BackgroundGeoLocation callback: ' + location.latitude + ',' + location.longitude,  // message
+			function(){},         // callback
+			'Game Over',            // title
+			'Done'                  // buttonName
+		);
           // Console.log only is here. You need to setup your own data interaction here
-      alert('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+      //alert('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
       /*
       IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
       and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
@@ -89,7 +95,7 @@ function setupGeolocation () {
 
     // Start tracking of user coords
     backgroundGeoLocation.start();
-
+	alert('test');
     // Stop tracking of user coords
     // backgroundGeoLocation.stop();
 }
