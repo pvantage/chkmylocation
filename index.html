@@ -52,6 +52,39 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=geometry&key=AIzaSyAdRw4y6QbeCa2AVoQcI_j7NMQZPYDrabU" type="text/javascript"></script>
 	<script type="text/javascript">
+	import React, { Component } from 'react';
+import { Alert } from 'react-native-web';
+import ReactDOM from 'react-dom';
+
+
+function onDeviceReady() {
+  BackgroundGeolocation.configure({
+      desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+      stationaryRadius: 50,
+      distanceFilter: 50,
+      notificationTitle: 'Background tracking',
+      notificationText: 'enabled',
+      debug: true,
+      startOnBoot: false,
+      stopOnTerminate: false,
+      locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+      interval: 10000,
+      fastestInterval: 5000,
+      activitiesInterval: 10000,
+      url: 'http://192.168.81.15:3000/location',
+      httpHeaders: {
+        'X-FOO': 'bar'
+      },
+      // customize post properties
+      postTemplate: {
+        lat: '@latitude',
+        lon: '@longitude',
+        foo: 'bar' // you can also add your own properties
+      }
+    });
+}
+
+document.addEventListener('deviceready', onDeviceReady, false);
 	function onDeviceReady2()
 	{
 		alert('test1');
